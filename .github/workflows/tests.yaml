@@ -22,7 +22,7 @@ jobs:
     if: "${{ !endsWith(github.actor, '[bot]') }}"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: projectdiscovery/actions/setup/go@v1
       - uses: projectdiscovery/actions/golangci-lint@v1
 
@@ -35,7 +35,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     runs-on: "${{ matrix.os }}"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: projectdiscovery/actions/setup/go@v1
       - run: make vet
       - run: make build
@@ -52,7 +52,7 @@ jobs:
     needs: ["tests"]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: projectdiscovery/actions/setup/go@v1
       - name: "Simple"
         run: go run .
@@ -72,9 +72,9 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: projectdiscovery/actions/setup/go@v1
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.10'
       - run: bash run.sh "${{ matrix.os }}"
@@ -93,7 +93,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: projectdiscovery/actions/setup/go@v1
       - run: bash run.sh "${{ matrix.os }}"
         env:
@@ -105,7 +105,7 @@ jobs:
     needs: ["tests"]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: projectdiscovery/actions/setup/go@v1
       - run: make template-validate
 
@@ -118,7 +118,7 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: github/codeql-action/init@v3
         with:
           languages: 'go'
@@ -130,7 +130,7 @@ jobs:
     needs: ["tests"]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: projectdiscovery/actions/setup/go@v1
       - uses: docker/setup-qemu-action@v3
       - uses: docker/setup-buildx-action@v3
@@ -144,7 +144,7 @@ jobs:
       TARGET_URL: "http://scanme.sh/a/?b=c"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: make build
       - name: "Setup environment (push)"
         if: ${{ github.event_name == 'push' }}
